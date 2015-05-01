@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.helianto</groupId>
+		<artifactId>helianto</artifactId>
+		<version>0.4.3-SNAPSHOT</version>
+	</parent>
+	<artifactId>helianto-order</artifactId>
+	
+	<name>Helianto Order module</name>
+	
+	<inceptionYear>2005</inceptionYear>
+	
+	<developers>
+		<developer>
+			<id>mauricio</id>
+			<name>Maurício Fernandes de Castro</name>
+			<email>mauricio at iservport dot com</email>
+			<timezone>-3</timezone>
+		</developer>
+	</developers>
+	
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<properties>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.test.failure.ignore>false</maven.test.failure.ignore>
+		<spring.framework.version>4.0.4.RELEASE</spring.framework.version>
+		<org.aspectj.version>1.6.11</org.aspectj.version>
+		<spring-social.version>1.0.3.RELEASE</spring-social.version>
+		<org.slf4j.version>1.7.10</org.slf4j.version>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>helianto-partner</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>helianto-document</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>jul-to-slf4j</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+  		<dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-classic</artifactId>
+		    <version>1.0.13</version>
+		</dependency>
+    </dependencies>
+	
+	<build>
+		<finalName>helianto-order</finalName>
+	</build>
+	
+</project>
