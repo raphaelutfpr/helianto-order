@@ -9,6 +9,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.helianto.core.domain.Entity;
+import org.helianto.document.domain.ProcessDocument;
 import org.helianto.partner.domain.PrivateEntity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -32,6 +33,11 @@ public class Contract
 	@ManyToOne
 	@JoinColumn(name="privateEntityId")
 	private PrivateEntity privateEntity;
+	
+	@JsonBackReference 
+	@ManyToOne
+	@JoinColumn(name="processDocumentId")
+	private ProcessDocument processDocument;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date nextCheckDate;
@@ -119,6 +125,14 @@ public class Contract
 	}
 	public void setCreateOrderDay(int createOrderDay) {
 		this.createOrderDay = createOrderDay;
+	}
+	
+	public ProcessDocument getProcessDocument() {
+		return processDocument;
+	}
+	
+	public void setProcessDocument(ProcessDocument processDocument) {
+		this.processDocument = processDocument;
 	}
 
 	/**

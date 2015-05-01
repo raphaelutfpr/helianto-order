@@ -10,8 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * 
  * @author Eldevan Nery Junior
  */
-public interface ContractRepository 
-	extends JpaRepository<Contract, Serializable> 
+public interface ContractRepository extends JpaRepository<Contract, Serializable> 
 {
 	/**
 	 * Find by Natural Key

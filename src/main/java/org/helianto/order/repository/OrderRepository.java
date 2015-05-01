@@ -15,8 +15,7 @@ import org.springframework.data.jpa.repository.Query;
  * 
  * @author mauriciofernandesdecastro
  */
-public interface OrderRepository extends
-		JpaRepository<AbstractOrder, Serializable> {
+public interface OrderRepository extends JpaRepository<AbstractOrder, Serializable> {
 	
 	/**
 	 * Find by Natural Key
@@ -59,6 +58,7 @@ public interface OrderRepository extends
 			+ ", order_.checkInData"
 			+ ", order_.checkOutData"
 			+ ", order_.remarks"
+			+ ", order_.part.tokenPrefix"
 			+ ", order_.part.currency.id"
 			+ ", order_.faceValue"
 			+ ") "
@@ -94,6 +94,7 @@ public interface OrderRepository extends
 			+ ", order_.checkInData"
 			+ ", order_.checkOutData"
 			+ ", order_.remarks"
+			+ ", order_.part.tokenPrefix"
 			+ ", order_.part.currency.id"
 			+ ", order_.faceValue"
 			+ ") "
@@ -130,6 +131,7 @@ public interface OrderRepository extends
 			+ ", order_.checkInData"
 			+ ", order_.checkOutData"
 			+ ", order_.remarks"
+			+ ", order_.part.tokenPrefix"
 			+ ", order_.part.currency.id"
 			+ ", order_.faceValue"
 			+ ") "
@@ -165,6 +167,7 @@ public interface OrderRepository extends
 			+ ", order_.checkInData"
 			+ ", order_.checkOutData"
 			+ ", order_.remarks"
+			+ ", order_.part.tokenPrefix"
 			+ ", order_.part.currency.id"
 			+ ", order_.faceValue"
 			+ ") "
@@ -201,6 +204,7 @@ public interface OrderRepository extends
 			+ ", order_.checkInData"
 			+ ", order_.checkOutData"
 			+ ", order_.remarks"
+			+ ", order_.part.tokenPrefix"
 			+ ", order_.part.currency.id"
 			+ ", order_.faceValue"
 			+ ") "
@@ -237,6 +241,7 @@ public interface OrderRepository extends
 			+ ", order_.checkInData"
 			+ ", order_.checkOutData"
 			+ ", order_.remarks"
+			+ ", order_.part.tokenPrefix"
 			+ ", order_.part.currency.id"
 			+ ", order_.faceValue"
 			+ ") "
@@ -274,6 +279,7 @@ public interface OrderRepository extends
 			+ ", order_.checkInData"
 			+ ", order_.checkOutData"
 			+ ", order_.remarks"
+			+ ", order_.part.tokenPrefix"
 			+ ", order_.part.currency.id"
 			+ ", order_.faceValue"
 			+ ") "
@@ -304,5 +310,24 @@ public interface OrderRepository extends
 			+ "and order_.part.docCode like ?2 "
 			+ "and order_.resolution = 'T' ")
 	List<Integer> findPartAdapterToExcludeByEntityIdAndDocCode(int entityId, String docCode, Pageable page);
+	
+	/**
+	 * List id like TokenCode.
+	 * 
+	 * @param entityId
+	 * @param TokenCode
+	 */
+	@Query("select order_ "
+			+ "from AbstractOrder order_ "
+			+ "where order_.entity.id = ?1 "
+			+ "and order_.checkInData like %?2% "
+			+ "and order_.resolution = 'T' ")
+	AbstractOrder findOrderByEntityIdAndTokenCode(int entityId, String tokenCode);
+	
+	@Query("select order_.checkInData "
+			+ "from AbstractOrder order_ "
+			+ "where order_.entity.id = ?1 "
+			+ "and order_.resolution = 'T' and order_.checkInData <> null ")
+	List<String> findCheckInDataByEntityId(int entityId);
 	
 }

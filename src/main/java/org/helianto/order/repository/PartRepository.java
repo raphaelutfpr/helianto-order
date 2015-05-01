@@ -15,8 +15,7 @@ import org.springframework.data.jpa.repository.Query;
  * 
  * @author mauriciofernandesdecastro
  */
-public interface PartRepository 
-	extends JpaRepository<Part, Serializable> 
+public interface PartRepository extends JpaRepository<Part, Serializable> 
 {
 	
 	/**
@@ -57,6 +56,7 @@ public interface PartRepository
 			+ ", part_.docFlag" 
 			+ ", part_.docValue"
 			+ ", part_.category.scriptItems"
+			+ ", part_.tokenPrefix"
 			+ ") "
 			+ "from Part part_ "
 			+ "where part_.id = ?1 ")
@@ -87,6 +87,7 @@ public interface PartRepository
 			+ ", part_.docFlag" 
 			+ ", part_.docValue" 
 			+ ", part_.category.scriptItems"
+			+ ", part_.tokenPrefix"
 			+ ") "
 			+ "from Part part_ "
 			+ "where part_.entity.id = ?1 "
@@ -118,6 +119,7 @@ public interface PartRepository
 			+ ", part_.docFlag" 
 			+ ", part_.docValue" 
 			+ ", part_.category.scriptItems"
+			+ ", part_.tokenPrefix"
 			+ ") "
 			+ "from Part part_ "
 			+ "where part_.category.id = ?1 "
@@ -148,6 +150,7 @@ public interface PartRepository
 			+ ", part_.docFlag" 
 			+ ", part_.docValue" 
 			+ ", part_.category.scriptItems"
+			+ ", part_.tokenPrefix"
 			+ ") "
 			+ "from Part part_ "
 			+ "WHERE part_.entity.id = ?1 "
@@ -180,6 +183,7 @@ public interface PartRepository
 			+ ", part_.docFlag" 
 			+ ", part_.docValue" 
 			+ ", part_.category.scriptItems"
+			+ ", part_.tokenPrefix"
 			+ ") "
 			+ "from Part part_ "
 			+ "where (part_.entity.id = ?1 "
@@ -210,6 +214,7 @@ public interface PartRepository
 			+ ", part_.docFlag" 
 			+ ", part_.docValue" 
 			+ ", part_.category.scriptItems"
+			+ ", part_.tokenPrefix"
 			+ ") "
 			+ "from Part part_ "
 			+ "where part_.entity.id = ?1 ")
@@ -239,6 +244,7 @@ public interface PartRepository
 			+ ", part_.docFlag" 
 			+ ", part_.docValue" 
 			+ ", part_.category.scriptItems"
+			+ ", part_.tokenPrefix"
 			+ ") "
 			+ "from Part part_ "
 			+ "WHERE part_.entity.id = ?1 "
@@ -268,6 +274,7 @@ public interface PartRepository
 			+ ", part_.docFlag" 
 			+ ", part_.docValue" 
 			+ ", part_.category.scriptItems"
+			+ ", part_.tokenPrefix"
 			+ ") "
 			+ "from Part part_ "
 			+ "WHERE part_.entity.id = ?1 and part_.id = ?2 ")

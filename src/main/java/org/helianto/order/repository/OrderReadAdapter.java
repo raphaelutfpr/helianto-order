@@ -57,11 +57,15 @@ public class OrderReadAdapter
 	
 	protected String remarks = "";
 	
+	protected String tokenPrefix = "";
+	
 	protected Integer currencyId;
 	
 	protected BigDecimal faceValue;
 	
 	protected Character position;
+	
+	protected boolean concurrentOrderEnabled = false;
 	
 	/**
 	 * Constructor.
@@ -122,7 +126,8 @@ public class OrderReadAdapter
 			, String categoryName
 			, String checkInData
 			, String checkOutData
-		    , String remarks 
+		    , String remarks 		
+		    , String tokenPrefix
 			, Integer currencyId
 			, BigDecimal faceValue
 		    ) {
@@ -145,6 +150,7 @@ public class OrderReadAdapter
 		this.checkInData = checkInData;
 		this.checkOutData = checkOutData;
 		this.remarks = remarks;
+		this.tokenPrefix = tokenPrefix;
 		this.currencyId = currencyId;
 		this.faceValue = faceValue;
 	}
@@ -191,7 +197,8 @@ public class OrderReadAdapter
 			, String categoryName
 			, String checkInData
 			, String checkOutData
-		    , String remarks 
+		    , String remarks     
+		    , String tokenPrefix
 			, Integer currencyId
 			, BigDecimal faceValue
 			, Character position
@@ -215,6 +222,7 @@ public class OrderReadAdapter
 		this.checkInData = checkInData;
 		this.checkOutData = checkOutData;
 		this.remarks = remarks;
+		this.tokenPrefix = tokenPrefix;
 		this.currencyId = currencyId;
 		this.faceValue = faceValue;
 		this.position = position;
@@ -298,7 +306,7 @@ public class OrderReadAdapter
 	
 	public String[] getCheckInDataAsArray() {
 		if (getCheckInData()!=null) {
-			return getCheckInData().split(" ");
+			return getCheckInData().split(";");
 		}
 		return new String[0];
 	}
@@ -328,6 +336,27 @@ public class OrderReadAdapter
 	
 	public Character getPosition() {
 		return position;
+	}
+	
+	public String getTokenPrefix() {
+		return tokenPrefix;
+	}
+	public void setTokenPrefix(String tokenPrefix) {
+		this.tokenPrefix = tokenPrefix;
+	}
+	
+	public Boolean isTokenEnabled(){
+		return (this.tokenPrefix==null || this.tokenPrefix.isEmpty())?false:true;
+	}
+	
+	/**
+	 * Pergunta ao cliente se permite mais de uma ordem para a mesma peça.
+	 */
+	public boolean isConcurrentOrderEnabled() {
+		return concurrentOrderEnabled;
+	}
+	public void setConcurrentOrderEnabled(boolean concurrentOrderEnabled) {
+		this.concurrentOrderEnabled = concurrentOrderEnabled;
 	}
 
 	@Override

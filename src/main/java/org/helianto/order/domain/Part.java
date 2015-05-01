@@ -59,10 +59,6 @@ public class Part
     @Column(length=512)
     private String parsedContent;
     
-	@ManyToOne
-	@JoinColumn(name="tokenId")
-	private Token token;
-	
 	private char activityState = 'T';
 	
     @ManyToOne
@@ -72,6 +68,9 @@ public class Part
     private BigDecimal docValue;
     
     private Boolean docFlag;
+    
+    @Column(length=4)
+    private String tokenPrefix;
     
 	public String getDiscriminator() {
 		return "A";
@@ -150,13 +149,6 @@ public class Part
 		this.parsedContent = parsedContent;
 	}
     
-	public Token getToken() {
-		return token;
-	}
-	public void setToken(Token token) {
-		this.token = token;
-	}
-	
 	public char getActivityState() {
 		return activityState;
 	}
@@ -186,6 +178,13 @@ public class Part
 	}
 	public void setDocFlag(Boolean docFlag) {
 		this.docFlag = docFlag;
+	}
+	
+	public String getTokenPrefix() {
+		return tokenPrefix;
+	}
+	public void setTokenPrefix(String tokenPrefix) {
+		this.tokenPrefix = tokenPrefix;
 	}
 	
 	@Override

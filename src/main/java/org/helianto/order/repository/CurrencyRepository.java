@@ -13,8 +13,7 @@ import org.springframework.data.jpa.repository.Query;
  * @author mauriciofernandesdecastro
  *
  */
-public interface CurrencyRepository extends
-	JpaRepository<Currency, Serializable> {
+public interface CurrencyRepository extends JpaRepository<Currency, Serializable> {
 	
 	/**
 	* Find by Natural Key

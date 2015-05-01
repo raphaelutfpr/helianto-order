@@ -24,23 +24,23 @@ public class PartReadAdapter
 
 	private static final long serialVersionUID = 1L;
 
-	protected Integer id;
+	protected Integer id = 0;
 
 	protected Part adaptee;
 
-	protected Integer entityId;
+	protected Integer entityId = 0;
 
-	protected Integer categoryId;
+	protected Integer categoryId = 0;
 
 	protected String categoryCode = "";
     
 	protected String categoryName = "";
     
-	protected Integer ownerId;
+	protected Integer ownerId = 0;
 
-	protected Integer currencyId;
+	protected Integer currencyId = 0;
 
-	protected Date issueDate;
+	protected Date issueDate = new Date();
 
 	protected String docCode = "";
 
@@ -48,13 +48,15 @@ public class PartReadAdapter
 
 	protected String docAbstract = "";
 
-	protected Character activityState;
+	protected Character activityState = 'A';
 
-	protected Boolean docFlag;
+	protected Boolean docFlag = true;
 
-	protected BigDecimal docValue;
+	protected BigDecimal docValue = BigDecimal.ZERO;
 
 	protected String template = "";
+	
+	protected String tokenPrefix;
     
     /**
      * Constructor.
@@ -120,6 +122,7 @@ public class PartReadAdapter
 		, Boolean docFlag
 		, BigDecimal docValue
 	    , String template
+	    , String tokenPrefix
 		) {
 		this(entityId, categoryId, ownerId, currencyId);
 		this.id = id; 
@@ -133,6 +136,7 @@ public class PartReadAdapter
 		this.docFlag = docFlag;
 		this.docValue = docValue;
 		this.template = template;
+		this.tokenPrefix = tokenPrefix;
 	}
 
 	/**
@@ -147,20 +151,18 @@ public class PartReadAdapter
 		if (entity==null) throw new UnsupportedOperationException("Entity required.");
 		if (category==null) throw new UnsupportedOperationException("Category required.");
 		if (owner==null) throw new UnsupportedOperationException("Identity required.");
-		if (currency==null) throw new UnsupportedOperationException("Currency required.");
 		if (adaptee==null) {
-			adaptee = new Part(entity, getCategoryCode());
+			adaptee = new Part(entity, getDocCode());
 			this.entityId = entity.getId();
 		}
 		adaptee.setCategory(category);
 		this.categoryId = category.getId();
-		this.categoryCode = category.getCategoryCode();
-		this.categoryName = category.getCategoryName();
-		this.template = category.getScriptItems();
 		adaptee.setOwner(owner);
 		this.ownerId = owner.getId();
-		adaptee.setCurrency(currency);
-		this.currencyId = currency.getId();
+		if (currency!=null) {
+			adaptee.setCurrency(currency);
+			this.currencyId = currency.getId();
+		}
 		return this;
 	}
 
@@ -178,25 +180,7 @@ public class PartReadAdapter
 		adaptee.setActivityState(this.activityState);
 		adaptee.setDocFlag(this.docFlag);
 		adaptee.setDocValue(this.docValue);
-		return this;
-	}
-
-	/**
-	 * Adaptee merger.
-	 *
-	 * @param adaptee
-	 */
-	public PartReadAdapter merge(Part adaptee) {
-		if (adaptee==null) throw new UnsupportedOperationException("Part required.");
-		this.adaptee = adaptee;
-		this.id = adaptee.getId();
-		this.docCode = adaptee.getDocCode();
-		this.issueDate = adaptee.getIssueDate();
-		this.docName = adaptee.getDocName();
-		this.docAbstract = adaptee.getDocAbstract();
-		this.activityState = adaptee.getActivityState();
-		this.docFlag = adaptee.isDocFlag();
-		this.docValue = adaptee.getDocValue();
+		adaptee.setTokenPrefix(this.tokenPrefix);
 		return this;
 	}
 
@@ -271,6 +255,10 @@ public class PartReadAdapter
 	
 	public String getTemplate() {
 		return template;
+	}
+	
+	public String getTokenPrefix() {
+		return tokenPrefix;
 	}
 
 	@Override

@@ -11,8 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * 
  * @author mauriciofernandesdecastro
  */
-public interface TokenRepository 
-	extends JpaRepository<Token, Serializable> 
+public interface TokenRepository extends JpaRepository<Token, Serializable> 
 {
 	
 	/**
