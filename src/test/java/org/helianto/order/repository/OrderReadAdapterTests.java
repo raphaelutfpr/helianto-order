@@ -31,7 +31,7 @@ public class OrderReadAdapterTests {
 				, 30       // Integer categoryId
 				, "CAT"    // String categoryCode
 				, "CATEGORY"      // String categoryName
-				, "TOKEN1 TOKEN2" // String checkInData
+				, "TOKEN1;TOKEN2" // String checkInData
 				, "TOKEN3 TOKEN4" // String checkOutData
 				, "REMARKS"       // String remarks     
 				, "TOKEN"        // String tokenPrefix
