@@ -33,14 +33,9 @@ public interface OrderRepository extends JpaRepository<AbstractOrder, Serializab
 	 */
 	AbstractOrder findByEntity_IdAndInternalNumber(int entityId, long internalNumber);
 
-	/**
-	 * Find adapter by id.
-	 * 
-	 * @param id
-	 */
-	@Query("select new "
-			+ "org.helianto.order.repository.OrderReadAdapter"
-			+ "(order_.id"
+	public final static String QUERY = "select new "
+			+ "org.helianto.order.domain.AbstractOrder"
+			+ "( order_.id"
 			+ ", order_.internalNumber"
 			+ ", order_.part.id"
 			+ ", order_.part.docCode"
@@ -61,10 +56,13 @@ public interface OrderRepository extends JpaRepository<AbstractOrder, Serializab
 			+ ", order_.part.tokenPrefix"
 			+ ", order_.part.currency.id"
 			+ ", order_.faceValue"
+			+ ", order_.position"
 			+ ") "
-			+ "from AbstractOrder order_ "
+			+ "from AbstractOrder order_ ";
+	
+	@Query(QUERY
 			+ "where order_.id = ?1 ")
-	OrderReadAdapter findById(int id);
+	AbstractOrder findById(int id);
 	
 	/**
 	 * Page by category id.
@@ -74,35 +72,11 @@ public interface OrderRepository extends JpaRepository<AbstractOrder, Serializab
 	 * @param resolution
 	 * @param page
 	 */
-	@Query("select new "
-			+ "org.helianto.order.repository.OrderReadAdapter"
-			+ "(order_.id"
-			+ ", order_.internalNumber"
-			+ ", order_.part.id"
-			+ ", order_.part.docCode"
-			+ ", order_.part.docName"
-			+ ", order_.issueDate"
-			+ ", order_.owner.id"
-			+ ", order_.owner.displayName"
-			+ ", order_.owner.personalData.imageUrl"
-			+ ", order_.resolution"
-			+ ", order_.nextCheckDate"
-			+ ", order_.checkOutTime"
-			+ ", order_.category.id"
-			+ ", order_.part.category.categoryCode"
-			+ ", order_.part.category.categoryName"
-			+ ", order_.checkInData"
-			+ ", order_.checkOutData"
-			+ ", order_.remarks"
-			+ ", order_.part.tokenPrefix"
-			+ ", order_.part.currency.id"
-			+ ", order_.faceValue"
-			+ ") "
-			+ "from AbstractOrder order_ "
+	@Query(QUERY
 			+ "where order_.entity.id = ?1 "
 			+ "and order_.category.id = ?2 "
 			+ "and order_.resolution in ?3   ")
-	Page<OrderReadAdapter> findByCategoryIdAndResolution(int entityId, Integer categoryId, char[] resolution, Pageable page);
+	Page<AbstractOrder> findByCategoryIdAndResolution(int entityId, Integer categoryId, char[] resolution, Pageable page);
 	
 	/**
 	 * Page by number.
@@ -111,34 +85,10 @@ public interface OrderRepository extends JpaRepository<AbstractOrder, Serializab
 	 * @param internalNumber
 	 * @param page
 	 */
-	@Query("select new "
-			+ "org.helianto.order.repository.OrderReadAdapter"
-			+ "(order_.id"
-			+ ", order_.internalNumber"
-			+ ", order_.part.id"
-			+ ", order_.part.docCode"
-			+ ", order_.part.docName"
-			+ ", order_.issueDate"
-			+ ", order_.owner.id"
-			+ ", order_.owner.displayName"
-			+ ", order_.owner.personalData.imageUrl"
-			+ ", order_.resolution"
-			+ ", order_.nextCheckDate"
-			+ ", order_.checkOutTime"
-			+ ", order_.category.id"
-			+ ", order_.part.category.categoryCode"
-			+ ", order_.part.category.categoryName"
-			+ ", order_.checkInData"
-			+ ", order_.checkOutData"
-			+ ", order_.remarks"
-			+ ", order_.part.tokenPrefix"
-			+ ", order_.part.currency.id"
-			+ ", order_.faceValue"
-			+ ") "
-			+ "from AbstractOrder order_ "
+	@Query(QUERY
 			+ "where order_.entity.id = ?1 "
 			+ "and order_.internalNumber = ?2 ")
-	Page<OrderReadAdapter> findByEntity_IdAndInternalNumber(int entityId, Long internalNumber, Pageable page);
+	Page<AbstractOrder> findByEntity_IdAndInternalNumber(int entityId, Long internalNumber, Pageable page);
 	
 	/**
 	 * Page like doc code.
@@ -147,34 +97,10 @@ public interface OrderRepository extends JpaRepository<AbstractOrder, Serializab
 	 * @param docCode
 	 * @param page
 	 */
-	@Query("select new "
-			+ "org.helianto.order.repository.OrderReadAdapter"
-			+ "(order_.id"
-			+ ", order_.internalNumber"
-			+ ", order_.part.id"
-			+ ", order_.part.docCode"
-			+ ", order_.part.docName"
-			+ ", order_.issueDate"
-			+ ", order_.owner.id"
-			+ ", order_.owner.displayName"
-			+ ", order_.owner.personalData.imageUrl"
-			+ ", order_.resolution"
-			+ ", order_.nextCheckDate"
-			+ ", order_.checkOutTime"
-			+ ", order_.category.id"
-			+ ", order_.part.category.categoryCode"
-			+ ", order_.part.category.categoryName"
-			+ ", order_.checkInData"
-			+ ", order_.checkOutData"
-			+ ", order_.remarks"
-			+ ", order_.part.tokenPrefix"
-			+ ", order_.part.currency.id"
-			+ ", order_.faceValue"
-			+ ") "
-			+ "from AbstractOrder order_ "
+	@Query(QUERY
 			+ "where order_.entity.id = ?1 "
 			+ "and order_.part.docCode like ?2 ")
-	Page<OrderReadAdapter> findByEntity_IdAndDocCode(int entityId, String docCode, Pageable page);
+	Page<AbstractOrder> findByEntity_IdAndDocCode(int entityId, String docCode, Pageable page);
 	
 	/**
 	 * Page like doc code and by resolution.
@@ -184,35 +110,11 @@ public interface OrderRepository extends JpaRepository<AbstractOrder, Serializab
 	 * @param resolution
 	 * @param page
 	 */
-	@Query("select new "
-			+ "org.helianto.order.repository.OrderReadAdapter"
-			+ "(order_.id"
-			+ ", order_.internalNumber"
-			+ ", order_.part.id"
-			+ ", order_.part.docCode"
-			+ ", order_.part.docName"
-			+ ", order_.issueDate"
-			+ ", order_.owner.id"
-			+ ", order_.owner.displayName"
-			+ ", order_.owner.personalData.imageUrl"
-			+ ", order_.resolution"
-			+ ", order_.nextCheckDate"
-			+ ", order_.checkOutTime"
-			+ ", order_.category.id"
-			+ ", order_.part.category.categoryCode"
-			+ ", order_.part.category.categoryName"
-			+ ", order_.checkInData"
-			+ ", order_.checkOutData"
-			+ ", order_.remarks"
-			+ ", order_.part.tokenPrefix"
-			+ ", order_.part.currency.id"
-			+ ", order_.faceValue"
-			+ ") "
-			+ "from AbstractOrder order_ "
+	@Query(QUERY
 			+ "where order_.entity.id = ?1 "
 			+ "and order_.part.docCode like ?2 "
 			+ "and order_.resolution = ?3 ")
-	Page<OrderReadAdapter> findByEntity_IdAndDocCodeAndResolution(int entityId, String docCode, char resolution, Pageable page);
+	Page<AbstractOrder> findByEntity_IdAndDocCodeAndResolution(int entityId, String docCode, char resolution, Pageable page);
 	
 	/**
 	 * Page like doc name.
@@ -221,34 +123,10 @@ public interface OrderRepository extends JpaRepository<AbstractOrder, Serializab
 	 * @param docName
 	 * @param page
 	 */
-	@Query("select new "
-			+ "org.helianto.order.repository.OrderReadAdapter"
-			+ "(order_.id"
-			+ ", order_.internalNumber"
-			+ ", order_.part.id"
-			+ ", order_.part.docCode"
-			+ ", order_.part.docName"
-			+ ", order_.issueDate"
-			+ ", order_.owner.id"
-			+ ", order_.owner.displayName"
-			+ ", order_.owner.personalData.imageUrl"
-			+ ", order_.resolution"
-			+ ", order_.nextCheckDate"
-			+ ", order_.checkOutTime"
-			+ ", order_.category.id"
-			+ ", order_.part.category.categoryCode"
-			+ ", order_.part.category.categoryName"
-			+ ", order_.checkInData"
-			+ ", order_.checkOutData"
-			+ ", order_.remarks"
-			+ ", order_.part.tokenPrefix"
-			+ ", order_.part.currency.id"
-			+ ", order_.faceValue"
-			+ ") "
-			+ "from AbstractOrder order_ "
+	@Query(QUERY
 			+ "where order_.entity.id = ?1 "
 			+ "and order_.part.docName LIKE ?2 ")
-	Page<OrderReadAdapter> findByEntity_IdAndDocName(int entityId, String docName, Pageable page);
+	Page<AbstractOrder> findByEntity_IdAndDocName(int entityId, String docName, Pageable page);
 	
 	/**
 	 * Page by search string.
@@ -259,37 +137,13 @@ public interface OrderRepository extends JpaRepository<AbstractOrder, Serializab
 	 * @param search
 	 * @param page
 	 */
-	@Query("select new "
-			+ "org.helianto.order.repository.OrderReadAdapter"
-			+ "(order_.id"
-			+ ", order_.internalNumber"
-			+ ", order_.part.id"
-			+ ", order_.part.docCode"
-			+ ", order_.part.docName"
-			+ ", order_.issueDate"
-			+ ", order_.owner.id"
-			+ ", order_.owner.displayName"
-			+ ", order_.owner.personalData.imageUrl"
-			+ ", order_.resolution"
-			+ ", order_.nextCheckDate"
-			+ ", order_.checkOutTime"
-			+ ", order_.category.id"
-			+ ", order_.part.category.categoryCode"
-			+ ", order_.part.category.categoryName"
-			+ ", order_.checkInData"
-			+ ", order_.checkOutData"
-			+ ", order_.remarks"
-			+ ", order_.part.tokenPrefix"
-			+ ", order_.part.currency.id"
-			+ ", order_.faceValue"
-			+ ") "
-			+ "from AbstractOrder order_ "
+	@Query(QUERY
 			+ "where order_.entity.id = ?1 "
 			+ "and order_.category.id = ?2 "
 			+ "and order_.resolution in ?3 "
 			+ "and (order_.part.docName like %?4%) "
 			+ "")
-	Page<OrderReadAdapter> findBySearchString(int entityId, Integer categoryId, char[] resolution, String search, Pageable page);
+	Page<AbstractOrder> findBySearchString(int entityId, Integer categoryId, char[] resolution, String search, Pageable page);
 
 	/**
 	 * Find the id from last InternalNumber.

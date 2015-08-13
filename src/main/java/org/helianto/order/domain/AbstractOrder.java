@@ -14,14 +14,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.helianto.core.domain.Category;
 import org.helianto.core.domain.Entity;
 import org.helianto.core.internal.AbstractEvent;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -47,25 +47,41 @@ public class AbstractOrder
 	
 	private static final long serialVersionUID = 1L;
 	
-	private long internalNumber;
+	private long internalNumber = 0;
 	
-	@JsonBackReference 
+	@JsonIgnore 
 	@ManyToOne
 	@JoinColumn(name="categoryId")
 	private Category category;
+
+	@Transient
+	private Integer categoryId = 0;
 	
-	@JsonBackReference 
+	@Transient
+	private String categoryCode = "";
+
+	@Transient
+	private String categoryName = "";
+
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="partId")
 	private Part part;
 	
+	@Transient
+	private Integer partId = 0;
+	
+	@Transient
+	private String docCode = "";
+
+	@Transient
+	private String docName = "";
+
 	private BigDecimal faceValue = BigDecimal.ZERO;
 
-	@DateTimeFormat(style="SS")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date nextCheckDate;
 	
-	@DateTimeFormat(style="SS")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date checkOutTime;
 	
@@ -76,9 +92,18 @@ public class AbstractOrder
 	private String checkOutData = "";
 	
 	@Column(length=255)
-	private String remarks;
+	private String remarks = "";
 	
 	private Character position;
+
+	@Transient
+	private String tokenPrefix = "";
+
+	@Transient
+	private Integer currencyId = 0;
+
+	@Transient
+	private boolean concurrentOrderEnabled;
 	
 	public String getDiscriminator() {
 		return "P";
@@ -99,6 +124,94 @@ public class AbstractOrder
 		setEntity(entity);
 		setInternalNumber(internalNumber);
 	}
+	
+	/**
+	 * Form constructor.
+	 * 
+	 * @param entityId
+	 * @param categoryId
+	 * @param ownerId
+	 */
+	public AbstractOrder(int entityId, int categoryId, int ownerId) {
+		this();
+		setEntityId(entityId);
+		setCategoryId(categoryId);
+		setOwnerId(ownerId);
+	}
+	
+	/**
+	 * Read constructor.
+	 * 
+	 * @param id
+	 * @param internalNumber
+	 * @param partId
+	 * @param docCode
+	 * @param docName
+	 * @param issueDate
+	 * @param ownerId
+	 * @param ownerDisplayName
+	 * @param ownerImageUrl
+	 * @param resolution
+	 * @param nextCheckDate
+	 * @param checkOutTime
+	 * @param categoryId
+	 * @param categoryCode
+	 * @param categoryName
+	 * @param checkInData
+	 * @param checkOutData
+	 * @param remarks
+	 * @param tokenPrefix
+	 * @param currencyId
+	 * @param faceValue
+	 * @param position
+	 */
+	public AbstractOrder(int id
+			, Long internalNumber
+			, Integer partId
+			, String docCode
+			, String docName
+			, Date issueDate
+			, Integer ownerId
+			, String ownerDisplayName
+			, String ownerImageUrl
+			, Character resolution
+			, Date nextCheckDate
+			, Date checkOutTime
+			, Integer categoryId
+			, String categoryCode
+			, String categoryName
+			, String checkInData
+			, String checkOutData
+		    , String remarks     
+		    , String tokenPrefix
+			, Integer currencyId
+			, BigDecimal faceValue
+			, Character position
+		    ) {
+		this();
+		setId(id);
+		setInternalNumber(internalNumber);
+		setPartId(partId);
+		setDocCode(docCode);
+		setDocName(docName);
+		setIssueDate(issueDate);
+		setOwnerId(ownerId);
+		setOwnerDisplayName(ownerDisplayName);
+		setOwnerImageUrl(ownerImageUrl);
+		setResolution(resolution!=null ? resolution : 'P');
+		setNextCheckDate(nextCheckDate);
+		setCheckOutTime(checkOutTime);
+		setCategoryId(categoryId);
+		setCategoryCode(categoryCode);
+		setCategoryName(categoryName);
+		setCheckInData(checkInData);
+		setCheckOutData(checkOutData);
+		setRemarks(remarks);
+		setTokenPrefix(tokenPrefix);
+		setCurrencyId(currencyId);
+		setFaceValue(faceValue);
+		setPosition(position);
+	}	
 	
 	public long getInternalNumber() {
 		return internalNumber;
@@ -131,7 +244,28 @@ public class AbstractOrder
     public void setCategory(Category category) {
 		this.category = category;
 	}
+    
+    public Integer getCategoryId() {
+		return categoryId;
+	}
+    public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
+	}
 
+    public String getCategoryCode() {
+		return categoryCode;
+	}
+    public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
+    
+    public String getCategoryName() {
+		return categoryName;
+	}
+    public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+    
 	public Part getPart() {
 		return part;
 	}
@@ -139,8 +273,30 @@ public class AbstractOrder
 		this.part = part;
 	}
 	
+	public Integer getPartId() {
+		return partId;
+	}
+	public void setPartId(Integer partId) {
+		this.partId = partId;
+	}
+
+	public String getDocCode() {
+		return docCode;
+	}
+	public void setDocCode(String docCode) {
+		this.docCode = docCode;
+	}
+	
+	public String getDocName() {
+		return docName;
+	}
+	public void setDocName(String docName) {
+		this.docName = docName;
+	}
+	
 	/**
 	 * Helper to retrieve part code.
+	 * @deprecated
 	 */
 	public String getPartCode() {
 		if (getPart()!=null) {
@@ -191,6 +347,34 @@ public class AbstractOrder
 		this.position = position;
 	}
 	
+	public String getTokenPrefix() {
+		return tokenPrefix;
+	}
+	public void setTokenPrefix(String tokenPrefix) {
+		this.tokenPrefix = tokenPrefix;
+	}
+	
+	public Boolean isTokenEnabled(){
+		return (this.tokenPrefix==null || this.tokenPrefix.isEmpty())?false:true;
+	}
+	
+	public Integer getCurrencyId() {
+		return currencyId;
+	}
+	public void setCurrencyId(Integer currencyId) {
+		this.currencyId = currencyId;
+	}
+	
+	/**
+	 * <<Transient>> true if user allowed more than one order open for the same part..
+	 */
+	public boolean isConcurrentOrderEnabled() {
+		return concurrentOrderEnabled;
+	}
+	public void setConcurrentOrderEnabled(boolean concurrentOrderEnabled) {
+		this.concurrentOrderEnabled = concurrentOrderEnabled;
+	}
+
     /**
      * Give subclasses a chance to validate next check date.
      */
@@ -214,6 +398,5 @@ public class AbstractOrder
          result = 37 * result + (int) this.getInternalNumber();
          return result;
    }
-
 
 }

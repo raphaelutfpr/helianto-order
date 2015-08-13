@@ -51,7 +51,7 @@ public class OrderReadAdapterTests {
 		assertEquals('T', (char) adapter.getResolution());
 		assertEquals(new DateTime(2001, 01, 02, 12, 30).toDate(), adapter.getNextCheckDate());
 		assertEquals(new DateTime(2001, 01, 03, 12, 30).toDate(), adapter.getCheckOutTime());
-		assertEquals(30, adapter.getCategoryId());
+		assertEquals(30, adapter.getCategoryId().intValue());
 		assertEquals("CAT", adapter.getCategoryCode());
 		assertEquals("CATEGORY", adapter.getCategoryName());
 		assertEquals("TOKEN1 TOKEN2".split(" "), adapter.getCheckInDataAsArray());
