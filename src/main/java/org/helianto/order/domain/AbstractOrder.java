@@ -143,6 +143,7 @@ public class AbstractOrder
 	 * Read constructor.
 	 * 
 	 * @param id
+	 * @param entityId
 	 * @param internalNumber
 	 * @param partId
 	 * @param docCode
@@ -166,6 +167,7 @@ public class AbstractOrder
 	 * @param position
 	 */
 	public AbstractOrder(int id
+			, Integer entityId
 			, Long internalNumber
 			, Integer partId
 			, String docCode
@@ -190,6 +192,7 @@ public class AbstractOrder
 		    ) {
 		this();
 		setId(id);
+		setEntityId(entityId);
 		setInternalNumber(internalNumber);
 		setPartId(partId);
 		setDocCode(docCode);

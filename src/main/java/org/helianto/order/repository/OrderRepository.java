@@ -36,6 +36,7 @@ public interface OrderRepository extends JpaRepository<AbstractOrder, Serializab
 	public final static String QUERY = "select new "
 			+ "org.helianto.order.domain.AbstractOrder"
 			+ "( order_.id"
+			+ ", order_.entity.id"
 			+ ", order_.internalNumber"
 			+ ", order_.part.id"
 			+ ", order_.part.docCode"
