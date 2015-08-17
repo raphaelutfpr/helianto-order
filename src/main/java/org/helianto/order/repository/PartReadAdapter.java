@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * Part adapter.
  *
  * @author mauriciofernandesdecastro
+ * @deprecated
  */
 public class PartReadAdapter
 	implements Serializable
