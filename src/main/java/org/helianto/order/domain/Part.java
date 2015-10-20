@@ -246,6 +246,20 @@ public class Part
 	}
 	
 	/**
+	+	 * Merger.
+	+	 * 
+	+	 * @param command
+	+	 */
+		public Part merge(Part command) {
+			super.merge(command);
+			setParsedContent(command.getParsedContent());
+			setActivityState(command.getActivityState());
+			setDocValue(command.getDocValue());
+			setTokenPrefix(command.getTokenPrefix());
+			return this;
+		}
+	
+	/**
 	 * Categoria do produto ou serviço.
 	 */
 	public Category getCategory() {

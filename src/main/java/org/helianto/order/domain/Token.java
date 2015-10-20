@@ -71,6 +71,17 @@ public class Token
     	setEntity(entity);
     	setTokenLabel(tokenLabel);
      }
+    
+    /**
+	+	 * Merger.
+	+	 * 
+	+	 * @param command
+	+	 */
+		public Token merge(Token command) {
+			setTokenLabel(command.getTokenLabel());
+			setTokenState(command.getTokenState());
+			return this;
+		}
 
     /**
      * Token label.

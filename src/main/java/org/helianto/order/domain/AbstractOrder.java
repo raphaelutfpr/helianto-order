@@ -216,6 +216,23 @@ public class AbstractOrder
 		setPosition(position);
 	}	
 	
+	/**
+	+	 * Merger.
+	+	 * 
+	+	 * @param command
+	+	 */
+		public AbstractOrder merge(AbstractOrder command) {
+			//super.merge(command);
+			setNextCheckDate(command.getNextCheckDate());
+			setCheckOutTime(command.getCheckOutTime());
+			setCheckInData(command.getCheckInData());
+			setCheckOutData(command.getCheckOutData());
+			setRemarks(command.getRemarks());
+			setPosition(command.getPosition());
+			return this;
+		}
+		
+
 	public long getInternalNumber() {
 		return internalNumber;
 	}

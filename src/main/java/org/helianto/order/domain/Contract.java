@@ -73,6 +73,22 @@ public class Contract
 		setDocCode(docCode);
 	}
 	
+	/**
+	+	 * Merger.
+	+	 * 
+	+	 * @param command
+	+	 */
+		public Contract merge(Contract command) {
+			super.merge(command);
+			setNextCheckDate(command.getNextCheckDate());
+			setCurrencyRate(command.getCurrencyRate());
+			setDiscountRate(command.getDiscountRate());
+			setCreateOrder(command.getCreateOrder());
+			setCreateOrderDay(command.getCreateOrderDay());
+			return this;
+		}
+		
+	
 	public PrivateEntity getPrivateEntity() {
 		return privateEntity;
 	}
