@@ -217,12 +217,11 @@ public class AbstractOrder
 	}	
 	
 	/**
-	+	 * Merger.
-	+	 * 
-	+	 * @param command
-	+	 */
+	  * Merger.
+	  * 
+	  * @param command
+  	  **/
 		public AbstractOrder merge(AbstractOrder command) {
-			//super.merge(command);
 			setNextCheckDate(command.getNextCheckDate());
 			setCheckOutTime(command.getCheckOutTime());
 			setCheckInData(command.getCheckInData());

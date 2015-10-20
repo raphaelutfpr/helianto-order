@@ -49,6 +49,18 @@ public class Currency
     private String currencyName = "";
     
     /**
+	  * Merger.
+	  * 
+	  * @param command
+	  **/
+		public Currency merge(Currency command) {
+			setId(command.getId());
+			setCurrencyCode(command.getCurrencyCode());
+			setCurrencyName(command.getCurrencyName());
+			return this;
+		}
+    
+    /**
      * Constructor.
      */
     public Currency() {
@@ -78,19 +90,7 @@ public class Currency
 		this(context, currencyCode);
 		this.currencyName = currencyName;
 	}
-	
-	/**
-	+	 * Merger.
-	+	 * 
-	+	 * @param command
-	+	 */
-		public Currency merge(Currency command) {
-			setId(command.getId());
-			setCurrencyCode(command.getCurrencyCode());
-			setCurrencyName(command.getCurrencyName());
-			return this;
-		}
-
+		
 	public int getId() {
 		return id;
 	}

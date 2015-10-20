@@ -66,6 +66,23 @@ public class TokenSerializer
     private String tokenName;
     
     /**
+  	  * Merger.
+  	  * 
+  	  * @param command
+  	  **/
+      public TokenSerializer merge(TokenSerializer command) {
+  			setId(command.getId());
+  			setTokenPrefix(command.getTokenPrefix());
+  			setLastToken(command.getLastToken());
+  			setTokenType(command.getTokenType());
+  			setTokenLogoUrl(command.getTokenLogoUrl());
+  			setTokenColorUrl(command.getTokenColorUrl());
+  			setTokenIconUrl(command.getTokenIconUrl());
+  			setTokenName(command.getTokenName());
+  			return this;
+  		}
+    
+    /**
      * Default constructor.
      */
     public TokenSerializer() {
@@ -83,24 +100,6 @@ public class TokenSerializer
 		setContext(context);
 		setTokenPrefix(tokenPrefix);
 	}
-    
-    /**
-	+	 * Merger.
-	+	 * 
-	+	 * @param command
-	+	 */
-    public TokenSerializer merge(TokenSerializer command) {
-			setId(command.getId());
-			setTokenPrefix(command.getTokenPrefix());
-			setLastToken(command.getLastToken());
-			setTokenType(command.getTokenType());
-			setTokenLogoUrl(command.getTokenLogoUrl());
-			setTokenColorUrl(command.getTokenColorUrl());
-			setTokenIconUrl(command.getTokenIconUrl());
-			setTokenName(command.getTokenName());
-			return this;
-		}
-    
     /*
      * Primary key.
      */

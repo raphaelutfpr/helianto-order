@@ -42,6 +42,17 @@ public class Token
     private String tokenLabel = "";
     
 	private char tokenState = TokenState.EMPTY.getValue();
+	
+	/**
+	  * Merger.
+	  * 
+	  * @param command
+	  **/
+		public Token merge(Token command) {
+			setTokenLabel(command.getTokenLabel());
+			setTokenState(command.getTokenState());
+			return this;
+		}
 
     /** 
      * Internal constructor.
@@ -71,18 +82,7 @@ public class Token
     	setEntity(entity);
     	setTokenLabel(tokenLabel);
      }
-    
-    /**
-	+	 * Merger.
-	+	 * 
-	+	 * @param command
-	+	 */
-		public Token merge(Token command) {
-			setTokenLabel(command.getTokenLabel());
-			setTokenState(command.getTokenState());
-			return this;
-		}
-
+        
     /**
      * Token label.
      */

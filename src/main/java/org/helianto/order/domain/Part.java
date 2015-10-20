@@ -92,6 +92,20 @@ public class Part
 	public String getDiscriminator() {
 		return "A";
 	}
+	
+	/**
+	  * Merger.
+	  * 
+	  * @param command
+	  **/
+		public Part merge(Part command) {
+			super.merge(command);
+			setParsedContent(command.getParsedContent());
+			setActivityState(command.getActivityState());
+			setDocValue(command.getDocValue());
+			setTokenPrefix(command.getTokenPrefix());
+			return this;
+		}
 
 	/**
 	 * Default constructor.
@@ -244,21 +258,7 @@ public class Part
 		setCategoryName(categoryName);
 		setTemplate(template);
 	}
-	
-	/**
-	+	 * Merger.
-	+	 * 
-	+	 * @param command
-	+	 */
-		public Part merge(Part command) {
-			super.merge(command);
-			setParsedContent(command.getParsedContent());
-			setActivityState(command.getActivityState());
-			setDocValue(command.getDocValue());
-			setTokenPrefix(command.getTokenPrefix());
-			return this;
-		}
-	
+			
 	/**
 	 * Categoria do produto ou serviço.
 	 */

@@ -55,6 +55,19 @@ public class OrderEvent
 	
     @Temporal(TemporalType.TIMESTAMP)
 	private Date issueDate = new Date();
+    
+    /**
+	  * Merger.
+	  * 
+	  * @param command
+	  **/
+		public OrderEvent merge(OrderEvent command) {
+			setId(command.getId());
+			setSequence(command.getSequence());
+			setTokenCode(command.getTokenCode());
+			setIssueDate(command.getIssueDate());
+			return this;
+		}
 	
 	/**
 	 * Construtor.
@@ -91,20 +104,7 @@ public class OrderEvent
 		setTokenCode(tokenCode);
 		setIssueDate(issueDate);
 	}
-	
-	/**
-	+	 * Merger.
-	+	 * 
-	+	 * @param command
-	+	 */
-		public OrderEvent merge(OrderEvent command) {
-			setId(command.getId());
-			setSequence(command.getSequence());
-			setTokenCode(command.getTokenCode());
-			setIssueDate(command.getIssueDate());
-			return this;
-		}
-
+		
 	public int getId() {
 		return id;
 	}
